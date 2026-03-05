@@ -1,0 +1,470 @@
+/* =========================================
+   FINANCES PRO - DASHBOARD STYLE
+   SaaS / UIX / Responsive
+========================================= */
+
+:root {
+
+--bg: #f5f7fa;
+--text: #1f2937;
+--card: #ffffff;
+
+--primary: #2563eb;
+--primary-hover: #1d4ed8;
+
+--border: #e5e7eb;
+
+--success: #10b981;
+--danger: #ef4444;
+
+--shadow: 0 4px 12px rgba(0,0,0,0.08);
+--radius: 12px;
+
+}
+
+
+/* DARK MODE */
+
+[data-theme="dark"] {
+
+--bg: #0f172a;
+--text: #f9fafb;
+--card: #1e293b;
+
+--primary: #3b82f6;
+--primary-hover: #2563eb;
+
+--border: #334155;
+
+--shadow: 0 4px 16px rgba(0,0,0,0.35);
+
+}
+
+
+/* RESET */
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+
+body{
+
+font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+
+background:var(--bg);
+color:var(--text);
+
+line-height:1.5;
+
+transition:
+background .3s,
+color .3s;
+
+}
+
+
+
+/* HEADER */
+
+.header{
+
+display:flex;
+align-items:center;
+justify-content:space-between;
+
+padding:18px 30px;
+
+background:var(--card);
+
+box-shadow:var(--shadow);
+
+position:sticky;
+top:0;
+z-index:100;
+
+}
+
+
+.logo{
+
+font-size:22px;
+font-weight:700;
+letter-spacing:0.5px;
+
+}
+
+
+/* NAVIGATION */
+
+.nav{
+
+display:flex;
+gap:12px;
+
+}
+
+
+.nav a{
+
+text-decoration:none;
+color:var(--text);
+
+padding:8px 14px;
+
+border-radius:8px;
+
+font-size:14px;
+
+transition:
+background .2s,
+color .2s;
+
+}
+
+
+.nav a:hover{
+
+background:var(--border);
+
+}
+
+
+.nav a.active{
+
+background:var(--primary);
+color:white;
+
+}
+
+
+
+/* THEME BUTTON */
+
+.theme-toggle{
+
+border:none;
+
+background:var(--primary);
+color:white;
+
+padding:8px 16px;
+
+border-radius:20px;
+
+font-size:13px;
+
+cursor:pointer;
+
+transition:
+background .2s,
+transform .1s;
+
+}
+
+
+.theme-toggle:hover{
+
+background:var(--primary-hover);
+
+}
+
+.theme-toggle:active{
+
+transform:scale(0.96);
+
+}
+
+
+
+/* CONTAINER */
+
+.container{
+
+max-width:1100px;
+
+margin:auto;
+
+padding:30px 16px;
+
+}
+
+
+
+/* INTRO */
+
+.intro{
+
+margin-bottom:25px;
+
+}
+
+.intro h1{
+
+font-size:30px;
+margin-bottom:6px;
+
+}
+
+.intro p{
+
+color:#6b7280;
+font-size:15px;
+
+}
+
+
+
+/* STAT GRID */
+
+.stats-grid{
+
+display:grid;
+
+grid-template-columns:
+repeat(auto-fit,minmax(200px,1fr));
+
+gap:18px;
+
+margin-bottom:28px;
+
+}
+
+
+.stat-card{
+
+background:var(--card);
+
+padding:22px;
+
+border-radius:var(--radius);
+
+border:1px solid var(--border);
+
+box-shadow:var(--shadow);
+
+transition:
+transform .15s,
+box-shadow .15s;
+
+}
+
+
+.stat-card:hover{
+
+transform:translateY(-4px);
+
+box-shadow:0 10px 24px rgba(0,0,0,0.1);
+
+}
+
+
+.stat-card h2{
+
+font-size:14px;
+font-weight:600;
+
+margin-bottom:8px;
+
+opacity:0.85;
+
+}
+
+
+.stat-card p{
+
+font-size:26px;
+font-weight:700;
+
+}
+
+
+
+/* TREND */
+
+.stat-card.trend p{
+
+color:var(--success);
+
+}
+
+
+/* ALERT */
+
+.stat-card.alert p{
+
+color:var(--danger);
+
+}
+
+
+
+/* FILTERS */
+
+.filters{
+
+margin-bottom:26px;
+
+}
+
+
+.filters h2{
+
+margin-bottom:10px;
+
+font-size:18px;
+
+}
+
+
+.filter-buttons{
+
+display:flex;
+flex-wrap:wrap;
+
+gap:10px;
+
+}
+
+
+.filter-buttons button{
+
+padding:8px 16px;
+
+border:1px solid var(--border);
+
+background:var(--card);
+
+border-radius:8px;
+
+font-size:13px;
+
+cursor:pointer;
+
+transition:
+background .2s,
+color .2s,
+border .2s;
+
+}
+
+
+.filter-buttons button:hover{
+
+background:var(--primary);
+color:white;
+border-color:var(--primary);
+
+}
+
+
+
+/* CHART */
+
+.chart-section{
+
+background:var(--card);
+
+padding:20px;
+
+border-radius:var(--radius);
+
+border:1px solid var(--border);
+
+box-shadow:var(--shadow);
+
+margin-bottom:26px;
+
+}
+
+
+.chart-section h2{
+
+margin-bottom:10px;
+
+}
+
+
+
+/* ANALYTICS */
+
+.analytics{
+
+background:var(--card);
+
+padding:20px;
+
+border-radius:var(--radius);
+
+border:1px solid var(--border);
+
+box-shadow:var(--shadow);
+
+margin-bottom:28px;
+
+}
+
+
+.analytics h2{
+
+margin-bottom:10px;
+
+}
+
+
+
+/* FOOTER */
+
+.footer{
+
+text-align:center;
+
+padding:18px;
+
+font-size:13px;
+
+color:#6b7280;
+
+border-top:1px solid var(--border);
+
+}
+
+
+
+/* RESPONSIVE */
+
+@media (max-width:768px){
+
+.header{
+
+flex-direction:column;
+gap:12px;
+
+}
+
+
+.nav{
+
+flex-wrap:wrap;
+justify-content:center;
+
+}
+
+
+.container{
+
+padding:24px 14px;
+
+}
+
+
+.stats-grid{
+
+grid-template-columns:
+repeat(auto-fit,minmax(160px,1fr));
+
+}
+
+}

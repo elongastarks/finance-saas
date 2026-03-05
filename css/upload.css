@@ -1,0 +1,204 @@
+/* =========================================
+   UPLOAD PAGE - DESIGN PRO SaaS
+========================================= */
+
+:root {
+    --bg: #f5f7fa;
+    --text: #1f2937;
+    --card: #ffffff;
+
+    --primary: #2563eb;
+    --primary-hover: #1d4ed8;
+
+    --border: #e5e7eb;
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+
+    --success: #10b981;
+    --danger: #ef4444;
+    --radius: 12px;
+}
+
+[data-theme="dark"] {
+    --bg: #0f172a;
+    --text: #f9fafb;
+    --card: #1e293b;
+
+    --primary: #3b82f6;
+    --primary-hover: #2563eb;
+
+    --border: #334155;
+    --shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+}
+
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+    transition: background 0.3s, color 0.3s;
+}
+
+/* HEADER */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 30px;
+    background: var(--card);
+    box-shadow: var(--shadow);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.nav {
+    display: flex;
+    gap: 12px;
+}
+
+.nav a {
+    text-decoration: none;
+    color: var(--text);
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: background 0.2s, color 0.2s;
+}
+
+.nav a:hover {
+    background: var(--border);
+}
+
+.nav a.active {
+    background: var(--primary);
+    color: white;
+}
+
+/* MESSAGE */
+.message {
+    max-width: 900px;
+    margin: 12px auto;
+    padding: 12px 16px;
+    border-radius: 8px;
+    text-align: center;
+    display: none;
+}
+
+.message.success {
+    background: var(--success);
+    color: white;
+}
+
+.message.error {
+    background: var(--danger);
+    color: white;
+}
+
+/* CONTAINER */
+.container {
+    max-width: 1100px;
+    margin: auto;
+    padding: 24px 16px;
+}
+
+/* FORM SECTION */
+.form-section {
+    background: var(--card);
+    padding: 22px;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    margin-bottom: 24px;
+}
+
+.form-section h2 {
+    margin-bottom: 14px;
+    font-size: 18px;
+}
+
+/* FORM */
+form {
+    display: grid;
+    gap: 12px;
+}
+
+label {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    font-size: 14px;
+    background: var(--card);
+    color: var(--text);
+}
+
+textarea {
+    min-height: 80px;
+    resize: vertical;
+}
+
+/* BUTTON */
+button {
+    margin-top: 8px;
+    padding: 10px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.2s;
+}
+
+button:hover {
+    background: var(--primary-hover);
+}
+
+/* FOOTER */
+.footer {
+    text-align: center;
+    padding: 16px;
+    font-size: 13px;
+    color: #6b7280;
+    border-top: 1px solid var(--border);
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .nav {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .container {
+        padding: 20px 12px;
+    }
+
+    .form-section {
+        padding: 18px;
+    }
+}
