@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Finances Pro - Enregistrement</title>
+
+<link rel="stylesheet" href="css/upload.css">
+
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header class="header">
+
+<div class="logo">Finances Pro</div>
+
+<nav class="nav">
+<a href="index.html">Dashboard</a>
+<a href="upload.html" class="active">Enregistrer</a>
+<a href="modify.html">Modifier</a>
+<a href="viewer.html">Analyse</a>
+<a href="download.html">Télécharger</a>
+</nav>
+
+</header>
+
+
+<!-- MESSAGE -->
+<div id="message" class="message"></div>
+
+
+<!-- CONTENU -->
+<main class="container">
+
+
+<!-- FORMULAIRE FINANCES -->
+<section class="form-section">
+
+<h2>Nouvelle opération financière</h2>
+
+<form id="finance-form">
+
+<label>Nom opération</label>
+<input type="text" id="title" required>
+
+
+<label>Type</label>
+<select id="type" required>
+<option value="">-- choisir --</option>
+<option value="income">Entrée (income)</option>
+<option value="expense">Sortie (expense)</option>
+</select>
+
+
+<label>Catégorie</label>
+<input type="text" id="category" required>
+
+
+<label>Montant</label>
+<input type="number" id="amount" required>
+
+
+<label>Devise</label>
+<select id="currency" required>
+<option value="USD">USD</option>
+<option value="CDF">CDF</option>
+</select>
+
+
+<label>Description</label>
+<textarea id="description"></textarea>
+
+
+<label>Lien reçu (PDF / image)</label>
+<input type="text" id="receiptUrl">
+
+
+<label>Statut</label>
+<select id="status">
+<option value="pending">En attente</option>
+<option value="validated">Validé</option>
+</select>
+
+
+<button type="submit">Enregistrer finance</button>
+
+</form>
+
+</section>
+
+
+
+<!-- FORMULAIRE VENTE -->
+<section class="form-section">
+
+<h2>Nouvelle vente</h2>
+
+<form id="vente-form">
+
+<label>Produit</label>
+<input type="text" id="productName" required>
+
+
+<label>Catégorie produit</label>
+<input type="text" id="productCategory" required>
+
+
+<label>Prix unitaire</label>
+<input type="number" id="productPrice" required>
+
+
+<label>Quantité</label>
+<input type="number" id="quantity" required>
+
+
+<label>Devise</label>
+<select id="v_currency" required>
+<option value="USD">USD</option>
+<option value="CDF">CDF</option>
+</select>
+
+
+<label>Nom client</label>
+<input type="text" id="buyerName">
+
+
+<label>Téléphone client</label>
+<input type="text" id="buyerPhone">
+
+
+<label>Mode paiement</label>
+<select id="paymentMethod">
+<option value="cash">Cash</option>
+<option value="mobile">Mobile money</option>
+<option value="transfer">Transfert</option>
+</select>
+
+
+<label>Statut</label>
+<select id="v_status">
+<option value="pending">En attente</option>
+<option value="paid">Payé</option>
+</select>
+
+
+<label>Notes</label>
+<textarea id="notes"></textarea>
+
+
+<button type="submit">Enregistrer vente</button>
+
+</form>
+
+</section>
+
+
+</main>
+
+
+<!-- FOOTER -->
+<footer class="footer">
+Finances Pro © 2026
+</footer>
+
+
+<!-- SCRIPTS -->
+<script type="module" src="js/firebase.js"></script>
+<script type="module" src="js/upload.js"></script>
+
+</body>
+</html>

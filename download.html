@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Finances Pro - Export</title>
+
+<link rel="stylesheet" href="css/download.css">
+
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+    <div class="logo">Finances Pro</div>
+
+    <nav class="nav">
+        <a href="index.html">Dashboard</a>
+        <a href="upload.html">Enregistrer</a>
+        <a href="modify.html">Modifier</a>
+        <a href="viewer.html">Analyse</a>
+        <a href="download.html" class="active">Télécharger</a>
+    </nav>
+</header>
+
+
+<!-- MESSAGE -->
+<div id="message" class="message"></div>
+
+
+<!-- CONTENU -->
+<main class="container">
+
+    <section class="export-section">
+        <h2>Exporter les données</h2>
+
+        <!-- TYPE -->
+        <div class="form-group">
+            <label>Type d’export</label>
+            <select id="export-type">
+                <option value="finances">Finances</option>
+                <option value="ventes">Ventes</option>
+            </select>
+        </div>
+
+        <!-- PERIODE -->
+        <div class="form-group">
+            <label>Période</label>
+            <select id="export-range">
+                <option value="7">Hebdomadaire (7 jours)</option>
+                <option value="30">Mensuel (30 jours)</option>
+            </select>
+        </div>
+
+        <!-- FORMAT -->
+        <div class="form-group">
+            <label>Format</label>
+            <select id="export-format">
+                <option value="pdf">PDF</option>
+                <option value="excel">Excel</option>
+            </select>
+        </div>
+
+        <!-- BOUTON -->
+        <button id="export-btn">Exporter</button>
+    </section>
+
+
+    <!-- TABLE PREVIEW (OPTIONNEL) -->
+    <section class="preview-section">
+        <h2>Aperçu (résumé)</h2>
+
+        <div id="preview-table">
+            <!-- tableau généré en JS si besoin -->
+        </div>
+    </section>
+
+</main>
+
+
+<!-- FOOTER -->
+<footer class="footer">
+    Finances Pro © 2026
+</footer>
+
+
+<!-- SCRIPTS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+
+<script type="module" src="js/firebase.js"></script>
+<script type="module" src="js/download.js"></script>
+
+</body>
+</html>
