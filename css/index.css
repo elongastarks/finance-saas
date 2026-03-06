@@ -177,7 +177,39 @@ transform:scale(0.96);
 
 }
 
+/* =========================================
+   AUTH LINKS (SIGNUP / LOGIN)
+========================================= */
 
+.auth-links {
+    display: flex;
+    gap: 10px;
+}
+
+.auth-btn {
+    padding: 8px 14px;
+    border-radius: 20px;
+    background: var(--primary);
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background 0.2s;
+}
+
+.auth-btn:hover {
+    background: var(--primary-hover);
+}
+
+.auth-btn.outline {
+    background: transparent;
+    border: 1px solid var(--primary);
+    color: var(--primary);
+}
+
+.auth-btn.outline:hover {
+    background: var(--primary);
+    color: white;
+          }
 
 /* CONTAINER */
 
@@ -467,4 +499,10 @@ repeat(auto-fit,minmax(160px,1fr));
 
 }
 
+}
+@media (max-width: 768px) {
+    .auth-links {
+        justify-content: center;
+        width: 100%;
+    }
 }
