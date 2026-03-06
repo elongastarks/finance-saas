@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inscription</title>
+
+<style>
+:root {
+    --bg: #f5f7fa;
+    --card: #ffffff;
+    --text: #1f2937;
+    --primary: #2563eb;
+    --primary-hover: #1d4ed8;
+    --shadow: 0 4px 12px rgba(0,0,0,0.08);
+    --radius: 12px;
+}
+
+body{
+    font-family:"Segoe UI",sans-serif;
+    background:var(--bg);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
+
+.container{
+    background:var(--card);
+    padding:24px;
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    width:340px;
+}
+
+h2{
+    margin-bottom:16px;
+}
+
+input{
+    width:100%;
+    padding:10px;
+    margin-bottom:10px;
+    border:1px solid #e5e7eb;
+    border-radius:8px;
+}
+
+button{
+    width:100%;
+    padding:10px;
+    background:var(--primary);
+    color:white;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:var(--primary-hover);
+}
+
+#message{
+    margin-top:10px;
+    font-size:13px;
+}
+
+.success{color:#10b981;}
+.error{color:#ef4444;}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>Créer un compte</h2>
+
+<input id="name" type="text" placeholder="Nom">
+
+<input id="email" type="email" placeholder="Email">
+
+<input id="password" type="password" placeholder="Mot de passe">
+
+<button id="signup-btn">S'inscrire</button>
+
+<p id="message"></p>
+
+<p style="margin-top:12px;font-size:13px;">
+Déjà un compte ?
+<a href="login.html">Se connecter</a>
+</p>
+
+</div>
+
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-app.js";
+
+import {
+getAuth,
+createUserWithEmailAndPassword
+} from "https://www.gstatic.com/firebasejs/12.10.0/firebase-auth.js";
+
+import {
+getFirestore,
+doc,
+setDoc,
+serverTimestamp
+} from "https://www.gstatic.com/firebasejs/12.10.0/firebase-firestore.js";
+
+
+const firebaseConfig = {
+apiKey: "AIzaSyDpDY5IZQotR_BLttttXjXrWS1K1XqSkfw",
+authDomain: "gestion-finance-saas.firebaseapp.com",
+projectId: "gestion-finance-saas",
+storageBucket: "gestion-finance-saas.firebasestorage.app",
+messagingSenderId: "318410713423",
+appId: "1:318410713423:web:79af99382ff54ac22d7d3a",
+measurementId: "G-D8QFQ76398"
+};
+
+
+const app = initializeApp(firebaseConfig);
+
+const auth = getAuth(app);
+
+const db = getFirestore(app);
+
+
+const message = document.getElementById("message");
+
+
+document.getElementById("signup-btn").addEventListener("click", async ()=>{
+
+const name = document.getElementById("name").value;
+const email = document.getElementById("email").value;
+const password = document.getElementById("password").value;
+
+if(!email || !password){
+message.textContent="Remplissez les champs";
+message.className="error";
+return;
+}
+
+try{
+
+const userCredential = await createUserWithEmailAndPassword(auth,email,password);
+
+const user = userCredential.user;
+
+await setDoc(doc(db,"users",user.uid),{
+
+name:name || "Utilisateur",
+email:user.email,
+role:"user",
+userID:user.uid,
+createdAt:serverTimestamp()
+
+});
+
+
+message.textContent="Compte créé avec succès";
+message.className="success";
+
+
+setTimeout(()=>{
+
+window.location.href="login.html";
+
+},1200);
+
+
+}catch(e){
+
+message.textContent=e.message;
+message.className="error";
+
+}
+
+});
+
+</script>
+
+</body>
+</html>
