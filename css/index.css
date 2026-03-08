@@ -195,7 +195,18 @@ transform:scale(0.96);
     font-size: 14px;
     transition: background 0.2s;
 }
+.auth-link{
+margin-left:15px;
+color:#444;
+font-weight:500;
+}
 
+.signup{
+background:#2b7cff;
+color:white;
+padding:6px 12px;
+border-radius:6px;
+}
 .auth-btn:hover {
     background: var(--primary-hover);
 }
