@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Finances Pro - Dashboard</title>
+
+<link rel="stylesheet" href="css/index.css">
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body>
+
+<header class="header">
+<div class="logo">Finances Pro</div>
+
+<nav class="nav">
+<a href="index.html" class="active">Dashboard</a>
+<a href="upload.html">Enregistrer</a>
+<a href="modify.html">Modifier</a>
+<a href="viewer.html">Analyse</a>
+<a href="download.html">Télécharger</a>
+</nav>
+
+<button id="theme-toggle" class="theme-toggle">
+🌙 Mode sombre
+</button>
+</header>
+
+
+<main class="container">
+
+<section class="intro">
+<h1>Tableau de bord</h1>
+<p>Résumé global de vos finances et performances.</p>
+</section>
+
+
+<!-- STATISTIQUES USD -->
+<section class="stats-grid">
+
+<div class="stat-card">
+<h2>Entrées (USD)</h2>
+<p id="total-entree-usd">0</p>
+</div>
+
+<div class="stat-card">
+<h2>Sorties (USD)</h2>
+<p id="total-sortie-usd">0</p>
+</div>
+
+<div class="stat-card">
+<h2>Bénéfice (USD)</h2>
+<p id="benefice-usd">0</p>
+</div>
+
+</section>
+
+
+<!-- STATISTIQUES CDF -->
+<section class="stats-grid">
+
+<div class="stat-card">
+<h2>Entrées (CDF)</h2>
+<p id="total-entree-cdf">0</p>
+</div>
+
+<div class="stat-card">
+<h2>Sorties (CDF)</h2>
+<p id="total-sortie-cdf">0</p>
+</div>
+
+<div class="stat-card">
+<h2>Bénéfice (CDF)</h2>
+<p id="benefice-cdf">0</p>
+</div>
+
+</section>
+
+
+<!-- STOCK & TENDANCE -->
+<section class="stats-grid">
+
+<div class="stat-card">
+<h2>Stock</h2>
+<p id="stock">0</p>
+</div>
+
+<div class="stat-card trend">
+<h2>Tendance</h2>
+<p id="trend-text">↔ stable</p>
+</div>
+
+<div class="stat-card alert">
+<h2>Alertes</h2>
+<p id="alert-text">Aucune alerte</p>
+</div>
+
+</section>
+
+
+<!-- FILTRES -->
+<section class="filters">
+<h2>Filtrer les données</h2>
+<div class="filter-buttons">
+<button data-range="3">3 jours</button>
+<button data-range="5">5 jours</button>
+<button data-range="7">Semaine</button>
+<button data-range="30">Mois</button>
+</div>
+</section>
+
+
+<!-- GRAPHIQUE USD -->
+<section class="chart-section">
+<h2>Évolution (USD)</h2>
+<canvas id="financeChartUsd"></canvas>
+</section>
+
+
+<!-- GRAPHIQUE CDF -->
+<section class="chart-section">
+<h2>Évolution (CDF)</h2>
+<canvas id="financeChartCdf"></canvas>
+</section>
+
+
+<!-- ANALYSE -->
+<section class="analytics">
+<h2>Analyse automatique</h2>
+<p id="analysis-text">Chargement de l’analyse...</p>
+</section>
+
+</main>
+
+
+<footer class="footer">
+<p>Finances Pro © 2026 - Gestion intelligente</p>
+</footer>
+
+
+<script type="module" src="js/firebase.js"></script>
+<script type="module" src="js/stats.js"></script>
+<script src="js/mode.js"></script>
+
+</body>
+</html>
