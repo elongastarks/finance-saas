@@ -112,7 +112,7 @@ function financeFields(data) {
 <input type="text" id="category" value="${data.category || ""}" required>
 
 <label>Montant</label>
-<input type="number" id="amount" value="${data.amount || 0}" required>
+<input type="number" id="amount" step="0.01" placeholder="Ex: 1.7" value="${data.amount || 0}" required>
 
 <label>Devise</label>
 <select id="currency">
@@ -145,7 +145,7 @@ function venteFields(data) {
 <input type="text" id="productCategory" value="${data.productCategory || ""}" required>
 
 <label>Prix unitaire</label>
-<input type="number" id="productPrice" value="${data.productPrice || 0}" required>
+<input type="number" id="productPrice" step="0.01" placeholder="Ex: 1.7" value="${data.productPrice || 0}" required>
 
 <label>Quantité</label>
 <input type="number" id="quantity" value="${data.quantity || 0}" required>
