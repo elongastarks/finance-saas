@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Recherche Document - Finances/Ventes</title>
+
+<!-- Firebase SDK -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-app.js";
+  import { getFirestore } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-firestore.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyDpDY5IZQotR_BLttttXjXrWS1K1XqSkfw",
+    authDomain: "gestion-finance-saas.firebaseapp.com",
+    projectId: "gestion-finance-saas",
+    storageBucket: "gestion-finance-saas.firebasestorage.app",
+    messagingSenderId: "318410713423",
+    appId: "1:318410713423:web:79af99382ff54ac22d7d3a",
+    measurementId: "G-D8QFQ76398"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  window.db = getFirestore(app);
+  window.auth = getAuth(app);
+</script>
+
+<style>
+  body { font-family: Arial, sans-serif; margin:20px; background:#f5f5f5; }
+  h1 { color:#333; }
+  label { display:block; margin-top:15px; font-weight:bold; }
+  input, select, button { padding:8px; margin-top:5px; width:100%; max-width:400px; }
+  button { cursor:pointer; background:#007bff; color:#fff; border:none; border-radius:4px; margin-top:10px; }
+  button:hover { background:#0056b3; }
+  .warning { color:#d9534f; font-style:italic; margin-top:10px; }
+  .preview { margin-top:20px; background:#fff; padding:15px; border-radius:6px; box-shadow:0 2px 5px rgba(0,0,0,0.1);}
+  .doc-item { padding:10px; border-bottom:1px solid #eee; display:flex; justify-content:space-between; align-items:center; }
+  .doc-item:last-child { border-bottom:none; }
+  .copy-btn { padding:5px 10px; background:#28a745; color:#fff; border:none; border-radius:4px; cursor:pointer; }
+  .copy-btn:hover { background:#1e7e34; }
+</style>
+</head>
+<body>
+
+<h1>Recherche de document</h1>
+
+<label for="typeDoc">Type de document</label>
+<select id="typeDoc">
+  <option value="finances">Finances</option>
+  <option value="ventes">Ventes</option>
+</select>
+
+<label for="fieldSearch">Recherche par champ</label>
+<input type="text" id="fieldSearch" placeholder="Ex: Achat Micro, Casque Audio, Jean...">
+
+<button id="searchBtn">Rechercher</button>
+
+<label class="warning">
+  ⚠️ Toujours utiliser les mêmes champs et valeurs exactes pour une recherche précise
+</label>
+
+<div id="preview" class="preview">
+  <p>Aucun résultat</p>
+</div>
+
+<script type="module">
+  import { collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-firestore.js";
+  import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-auth.js";
+
+  const searchBtn = document.getElementById("searchBtn");
+  const preview = document.getElementById("preview");
+  const typeDoc = document.getElementById("typeDoc");
+  const fieldSearch = document.getElementById("fieldSearch");
+
+  function showMessage(text) {
+    preview.innerHTML = `<p style="color:#d9534f; font-style:italic;">${text}</p>`;
+  }
+
+  // 🔒 Vérifie que l'utilisateur est connecté
+  onAuthStateChanged(window.auth, user => {
+    if (!user) {
+      showMessage("Veuillez vous connecter pour rechercher vos documents.");
+      searchBtn.disabled = true;
+    } else {
+      searchBtn.disabled = false;
+    }
+  });
+
+  searchBtn.addEventListener("click", async () => {
+    const type = typeDoc.value;
+    const searchValue = fieldSearch.value.trim();
+    if (!searchValue) return showMessage("Entrez une valeur à rechercher");
+
+    const user = window.auth.currentUser;
+    if (!user) return showMessage("Utilisateur non connecté");
+
+    preview.innerHTML = "<p>Recherche en cours...</p>";
+
+    try {
+      const colRef = collection(window.db, type);
+
+      // 🔹 Champs de recherche selon le type
+      const searchFields = type === "finances"
+        ? ["title", "category"]
+        : ["productName", "buyerName", "productCategory"];
+
+      let results = [];
+
+      for (let field of searchFields) {
+        const q = query(
+          colRef,
+          where("userID", "==", user.uid), // 🔒 Filtre sur l'utilisateur
+          where(field, "==", searchValue)
+        );
+        const snap = await getDocs(q);
+        snap.forEach(doc => {
+          results.push({ id: doc.id, data: doc.data() });
+        });
+      }
+
+      if (results.length === 0) {
+        preview.innerHTML = "<p>Aucun document trouvé.</p>";
+        return;
+      }
+
+      // Affichage
+      preview.innerHTML = "";
+      results.forEach(doc => {
+        const div = document.createElement("div");
+        div.classList.add("doc-item");
+
+        const info = document.createElement("span");
+        info.textContent = `${JSON.stringify(doc.data).slice(0, 50)}...`;
+
+        const copyBtn = document.createElement("button");
+        copyBtn.classList.add("copy-btn");
+        copyBtn.textContent = "Copier ID";
+        copyBtn.addEventListener("click", () => {
+          navigator.clipboard.writeText(doc.id)
+            .then(() => alert(`ID ${doc.id} copié !`))
+            .catch(err => alert("Erreur copie : " + err));
+        });
+
+        div.appendChild(info);
+        div.appendChild(copyBtn);
+        preview.appendChild(div);
+      });
+
+    } catch (e) {
+      showMessage("Erreur lors de la recherche : " + e.message);
+      console.warn(e);
+    }
+  });
+</script>
+
+</body>
+</html>
