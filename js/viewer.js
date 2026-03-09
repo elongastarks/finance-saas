@@ -61,7 +61,7 @@ return past;
 
 function formatMoney(value){
 
-return value.toLocaleString();
+return (value || 0).toLocaleString();
 
 }
 
@@ -171,7 +171,6 @@ type: data.type
 });
 
 });
-
 
 // =========================================
 // VENTES
@@ -308,8 +307,8 @@ if(!analysis) return;
 
 let message = "";
 
-const benef = (stats.usd.entree + stats.cdf.entree)
--
+const benef =
+(stats.usd.entree + stats.cdf.entree) -
 (stats.usd.sortie + stats.cdf.sortie);
 
 if(benef > 0){
@@ -375,7 +374,6 @@ csv += `${h.date.toISOString()},${h.type},${h.value}\n`;
 });
 
 const blob = new Blob([csv],{type:"text/csv"});
-
 const url = URL.createObjectURL(blob);
 
 const a = document.createElement("a");
