@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -15,9 +13,7 @@
 
 </head>
 
-
 <body>
-
 
 <!-- HEADER -->
 <header class="header">
@@ -35,15 +31,12 @@
 </header>
 
 
-
 <!-- MESSAGE UX -->
 <div id="message" class="message"></div>
 
 
-
 <!-- CONTENU -->
 <main class="container">
-
 
 
 <!-- FILTRE -->
@@ -61,126 +54,51 @@
 </section>
 
 
-
-<!-- ======================================= -->
-<!-- STATISTIQUES USD -->
-<!-- ======================================= -->
-
-<section class="currency-section">
-
-<h2>Statistiques USD ($)</h2>
-
+<!-- STATISTIQUES -->
 <section class="stats-grid">
 
 <div class="stat-card">
 <h2>Entrées</h2>
-<p id="stat-entree-usd">0</p>
+<p id="stat-entree">0</p>
 </div>
 
 <div class="stat-card">
 <h2>Sorties</h2>
-<p id="stat-sortie-usd">0</p>
+<p id="stat-sortie">0</p>
 </div>
 
 <div class="stat-card">
 <h2>Bénéfice</h2>
-<p id="stat-benefice-usd">0</p>
+<p id="stat-benefice">0</p>
 </div>
 
 <div class="stat-card">
 <h2>Ventes</h2>
-<p id="stat-ventes-usd">0</p>
+<p id="stat-ventes">0</p>
 </div>
 
 <div class="stat-card">
 <h2>Stock</h2>
-<p id="stat-stock-usd">0</p>
+<p id="stat-stock">0</p>
 </div>
 
 </section>
 
-</section>
-
-
-
-<!-- ======================================= -->
-<!-- STATISTIQUES CDF -->
-<!-- ======================================= -->
-
-<section class="currency-section">
-
-<h2>Statistiques CDF (Franc Congolais)</h2>
-
-<section class="stats-grid">
-
-<div class="stat-card">
-<h2>Entrées</h2>
-<p id="stat-entree-cdf">0</p>
-</div>
-
-<div class="stat-card">
-<h2>Sorties</h2>
-<p id="stat-sortie-cdf">0</p>
-</div>
-
-<div class="stat-card">
-<h2>Bénéfice</h2>
-<p id="stat-benefice-cdf">0</p>
-</div>
-
-<div class="stat-card">
-<h2>Ventes</h2>
-<p id="stat-ventes-cdf">0</p>
-</div>
-
-<div class="stat-card">
-<h2>Stock</h2>
-<p id="stat-stock-cdf">0</p>
-</div>
-
-</section>
-
-</section>
-
-
-
-<!-- EXPORT -->
 <div class="export-section">
-<button id="export-btn">Exporter en CSV</button>
+    <button id="export-btn">Exporter en CSV</button>
 </div>
 
-
-
-<!-- ======================================= -->
-<!-- GRAPHIQUE USD -->
-<!-- ======================================= -->
-
+<!-- GRAPHIQUE -->
 <section class="chart-section">
 
-<h2>Évolution USD</h2>
+<h2>Évolution</h2>
 
-<canvas id="viewerChartUSD"></canvas>
-
-</section>
-
-
-
-<!-- ======================================= -->
-<!-- GRAPHIQUE CDF -->
-<!-- ======================================= -->
-
-<section class="chart-section">
-
-<h2>Évolution CDF</h2>
-
-<canvas id="viewerChartCDF"></canvas>
+<canvas id="viewerChart"></canvas>
 
 </section>
-
 
 
 <!-- ANALYTICS -->
-
 <section class="analytics">
 
 <h2>Analyse automatique</h2>
@@ -192,19 +110,16 @@ Chargement de l’analyse...
 </section>
 
 
-
 </main>
-
 
 
 <!-- FOOTER -->
 <footer class="footer">
 Finances Pro © 2026
-  </footer>
+</footer>
 
 
 <!-- SCRIPTS -->
-
 <script type="module" src="js/firebase.js"></script>
 <script type="module" src="js/viewer.js"></script>
 
