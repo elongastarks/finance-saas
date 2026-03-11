@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gestion de gains aléatoires</title>
+<style>
+/* RESET */
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif;}
+body{background:#f9fafb;color:#111827;padding:10px;}
+h1,h2{text-align:center;margin-bottom:15px;}
+h1{color:#2563eb;font-size:24px;}
+h2{color:#374151;font-size:18px;}
+.container{max-width:1000px;margin:0 auto;background:white;padding:15px;border-radius:10px;box-shadow:0 6px 15px rgba(0,0,0,0.1);}
+table{width:100%;border-collapse:collapse;margin-bottom:15px;font-size:14px;}
+th,td{padding:10px;text-align:center;border:1px solid #e5e7eb;}
+th{background:#2563eb;color:white;font-size:14px;}
+input[type=number]{width:80px;padding:5px;border:1px solid #cbd5e1;border-radius:5px;text-align:center;font-size:14px;}
+select{padding:5px;border-radius:5px;border:1px solid #cbd5e1;font-size:14px;}
+button{background:#10b981;color:white;padding:8px 16px;border:none;border-radius:8px;font-weight:bold;cursor:pointer;margin:5px 0;font-size:14px;}
+button:hover{background:#059669;}
+#conseils{background:#f3f4f6;padding:15px;border-radius:10px;margin-top:15px;line-height:1.5;font-size:14px;}
+@media(max-width:600px){
+  table, th, td{font-size:12px;}
+  input[type=number]{width:60px;}
+  select{width:70px;}
+  h1{font-size:20px;}
+  h2{font-size:16px;}
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+<h1>Gestion de tes gains aléatoires</h1>
+<h2>Saisis tes gains journaliers et visualise la répartition</h2>
+
+<!-- Choix pourcentage investissement -->
+<div style="text-align:center;margin-bottom:10px;">
+<label for="investPerc">Pourcentage à investir : </label>
+<select id="investPerc" onchange="recalculerTout()">
+  <option value="30">30%</option>
+  <option value="50">50%</option>
+</select>
+</div>
+
+<!-- Inputs des gains -->
+<div style="text-align:center;margin-bottom:10px;">
+<label for="jours">Nombre de jours : </label>
+<input type="number" id="jours" value="4" min="1" max="30">
+<button onclick="genererTableau()">Créer le tableau</button>
+<button onclick="resetGains()">Réinitialiser</button>
+</div>
+
+<!-- Tableau dynamique -->
+<table id="tableGains">
+<thead>
+<tr>
+<th>Jour</th>
+<th>Gain reçu (FC)</th>
+<th>Nourriture/Hygiène</th>
+<th>Épargne (20%)</th>
+<th>Investissement</th>
+<th>Fonds tampon</th>
+</tr>
+</thead>
+<tbody>
+<!-- JS va générer les lignes ici -->
+</tbody>
+</table>
+
+<!-- Section conseils -->
+<div id="conseils">
+<h2>Conseils pratiques pour gérer tes gains</h2>
+<ul>
+<li><strong>Priorité 1 :</strong> Nourriture et hygiène immédiate.</li>
+<li><strong>Priorité 2 :</strong> Épargne systématique (20% de chaque gain).</li>
+<li><strong>Priorité 3 :</strong> Investissement choisi (30% ou 50%).</li>
+<li><strong>Fonds tampon :</strong> conserver le reste pour les jours sans revenu.</li>
+<li>Si un jour tu ne gagnes rien, utilise uniquement le fonds tampon pour le minimum vital.</li>
+<li>Objectif : sécurité + continuité du projet + épargne automatique.</li>
+</ul>
+</div>
+
+<script>
+// Fonction pour sauvegarder les gains dans localStorage
+function sauvegarderGains() {
+  const tbody = document.querySelector("#tableGains tbody");
+  const data = [];
+  tbody.querySelectorAll("tr").forEach(tr=>{
+    const gain = tr.querySelector("input").value;
+    data.push(parseInt(gain)||0);
+  });
+  localStorage.setItem("gains", JSON.stringify(data));
+  localStorage.setItem("investPerc", document.getElementById("investPerc").value);
+}
+
+// Fonction pour générer le tableau initial
+function genererTableau(){
+  const jours = parseInt(document.getElementById('jours').value);
+  const tbody = document.querySelector("#tableGains tbody");
+  tbody.innerHTML = ""; // vider le tableau
+
+  let anciensGains = JSON.parse(localStorage.getItem("gains")) || [];
+  let investPerc = parseInt(localStorage.getItem("investPerc")) || 30;
+  document.getElementById("investPerc").value = investPerc;
+
+  for(let i=0;i<jours;i++){
+    const tr = document.createElement("tr");
+    const gainInitial = anciensGains[i] || 0;
+
+    tr.innerHTML = `
+      <td>${i+1}</td>
+      <td><input type="number" value="${gainInitial}" min="0" oninput="calculerLigne(this)"></td>
+      <td class="nourriture">0</td>
+      <td class="epargne">0</td>
+      <td class="investissement">0</td>
+      <td class="tampon">0</td>
+    `;
+    tbody.appendChild(tr);
+
+    // Calcul initial si anciens gains
+    calculerLigne(tr.querySelector("input"));
+  }
+}
+
+// Fonction pour calculer une ligne
+function calculerLigne(input){
+  const tr = input.closest("tr");
+  const gain = parseInt(input.value) || 0;
+  const investPerc = parseInt(document.getElementById("investPerc").value);
+
+  const nourriture = Math.min(gain,1000); // minimum 1000 FC par jour max
+  const epargne = Math.floor(gain*0.2);
+  const investissement = Math.floor(gain*investPerc/100);
+  const tampon = gain - (nourriture + epargne + investissement);
+
+  tr.querySelector(".nourriture").innerText = nourriture;
+  tr.querySelector(".epargne").innerText = epargne;
+  tr.querySelector(".investissement").innerText = investissement;
+  tr.querySelector(".tampon").innerText = tampon;
+
+  sauvegarderGains();
+}
+
+// Fonction pour recalculer tout (après changement %)
+function recalculerTout(){
+  document.querySelectorAll("#tableGains tbody input").forEach(input=>{
+    calculerLigne(input);
+  });
+}
+
+// Fonction pour réinitialiser les gains
+function resetGains(){
+  if(confirm("Voulez-vous vraiment réinitialiser tous les gains ?")){
+    localStorage.removeItem("gains");
+    localStorage.removeItem("investPerc");
+    genererTableau();
+  }
+}
+
+// Générer tableau par défaut au chargement
+window.onload = function(){
+  genererTableau();
+}
+</script>
+
+</div>
+</body>
+  </html>
